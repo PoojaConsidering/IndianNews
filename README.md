@@ -16,111 +16,79 @@ A full-stack web app that tracks how much of Indian news website coverage is Ind
 
 ## Tech Stack
 
-|
- Layer 
-|
- Tool 
-|
-|
----
-|
----
-|
-|
- Scraping 
-|
- Python, BeautifulSoup, Requests 
-|
-|
- AI Classification & Summary 
-|
- Claude API (Anthropic) 
-|
-|
- Scheduling 
-|
- APScheduler 
-|
-|
- Backend API 
-|
- FastAPI 
-|
-|
- Database 
-|
- SQLite 
-|
-|
- Frontend 
-|
- HTML, CSS, JavaScript, Chart.js 
-|
+| Layer | Tool |
+|---|---|
+| Scraping | Python, BeautifulSoup, Requests |
+| AI Classification & Summary | Claude API (Anthropic) |
+| Scheduling | APScheduler |
+| Backend API | FastAPI |
+| Database | SQLite |
+| Frontend | HTML, CSS, JavaScript, Chart.js |
 
 ---
 
 ## Project Structure
+
+```
 indian-news-tracker/
 ├── scraper/
-│ ├── init.py
-│ ├── sites.py # Target news websites and CSS selectors
-│ ├── scraper.py # Fetches and parses headlines
-│ └── classifier.py # Classifies headlines using Claude AI
+│   ├── __init__.py
+│   ├── sites.py
+│   ├── scraper.py
+│   └── classifier.py
 ├── summarizer/
-│ ├── init.py
-│ └── summarize.py # Generates summary and overview using Claude AI
+│   ├── __init__.py
+│   └── summarize.py
 ├── scheduler/
-│ ├── init.py
-│ └── job.py # Runs the daily pipeline at 12:00 PM
+│   ├── __init__.py
+│   └── job.py
 ├── backend/
-│ ├── init.py
-│ ├── main.py # FastAPI app
-│ ├── routes.py # API endpoints
-│ ├── database.py # SQLite operations
-│ └── models.py # Pydantic models
+│   ├── __init__.py
+│   ├── main.py
+│   ├── routes.py
+│   ├── database.py
+│   └── models.py
 ├── frontend/
-│ ├── index.html
-│ ├── style.css
-│ └── app.js
+│   ├── index.html
+│   ├── style.css
+│   └── app.js
 ├── database/
-│ └── news.db # Auto-created on first run
-├── .env # API keys (never push this)
+├── .env
 ├── .gitignore
 ├── requirements.txt
 └── README.md
-
-
+```
 
 ---
 
 ## Setup Instructions
 
 ### 1. Clone the repository
+```
 git clone https://github.com/your-username/indian-news-tracker.git
 cd indian-news-tracker
-
-
+```
 
 ### 2. Install dependencies
+```
 pip install -r requirements.txt
-
-
+```
 
 ### 3. Add your API key
 Create a `.env` file in the root folder:
+```
 ANTHROPIC_API_KEY=your_api_key_here
-
-
+```
 
 ### 4. Run the backend
+```
 uvicorn backend.main:app --reload
-
-
+```
 
 ### 5. Start the scheduler
+```
 python scheduler/job.py
-
-
+```
 
 ### 6. Open the frontend
 Open `frontend/index.html` in your browser.
