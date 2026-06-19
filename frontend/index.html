@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Indian News Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>🇮🇳 Indian News Tracker</h1>
+    <p>How much of Indian news coverage is actually about India?</p>
+  </header>
+
+  <main>
+
+    <section class="graph-section">
+      <h2>India vs Global News Over Time</h2>
+      <canvas id="newsChart"></canvas>
+    </section>
+
+    <section class="summary-section">
+      <h2>Today's Summary</h2>
+      <p id="summary-date" class="date"></p>
+      <p id="summary-text"></p>
+
+      <h2>Detailed Overview</h2>
+      <p id="overview-text"></p>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
