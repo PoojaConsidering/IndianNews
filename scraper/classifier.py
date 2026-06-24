@@ -1,14 +1,11 @@
-from openai import OpenAI
-import os
+import anthropic
 import json
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-client = OpenAI(
-    api_key=os.getenv("DEEPSEEK_API_KEY"),
-    base_url="https://api.deepseek.com"
-)
+client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 def classify_headlines(headlines: list[str]) -> dict:
     headlines_text = "\n".join(f"- {h}" for h in headlines)
@@ -30,21 +27,10 @@ Respond ONLY with a valid JSON object in this exact format, no explanation:
   "global_headlines": ["headline1", "headline2", ...]
 }}"""
 
-    response = client.chat.completions.create(
-        model="deepseek-chat",
+    message = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=4096,
         messages=[{"role": "user", "content": prompt}]
     )
-    raw = response.choices[0].message.content.strip()
-    result = json.loads(raw)
-    return result
 
-if __name__ == "__main__":
-    sample = [
-        "PM Modi inaugurates new highway in Gujarat",
-        "US and China hold trade talks in Geneva",
-        "IPL 2025: Mumbai Indians win by 6 wickets",
-        "Ukraine war enters third year with no end in sight",
-        "Bengaluru traffic worsens due to metro work"
-    ]
-    result = classify_headlines(sample)
-    print(result)
+    raw = message.content[0].text.s

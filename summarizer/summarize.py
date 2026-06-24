@@ -1,14 +1,11 @@
-from openai import OpenAI
-import os
+import anthropic
 import json
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-client = OpenAI(
-    api_key=os.getenv("DEEPSEEK_API_KEY"),
-    base_url="https://api.deepseek.com"
-)
+client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 def generate_summary(india_headlines: list[str], global_headlines: list[str]) -> dict:
     india_text = "\n".join(f"- {h}" for h in india_headlines)
@@ -32,11 +29,13 @@ Respond ONLY with a valid JSON object in this exact format, no explanation:
   "overview": "detailed overview here"
 }}"""
 
-    response = client.chat.completions.create(
-        model="deepseek-chat",
+    message = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=1000,
         messages=[{"role": "user", "content": prompt}]
     )
-    raw = response.choices[0].message.content.strip()
+
+    raw = message.content[0].text.strip()
     result = json.loads(raw)
     return result
 
